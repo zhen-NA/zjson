@@ -31,7 +31,7 @@ static int _zjson_parse_null(IN zjson_context *context, OUT zjson_value *value)
     {
         return ZJ_PARSE_INVALID_VALUE;
     }
-    context->json += 4;
+    context->json += 4; /* 判断结尾用 */
     value->type = ZJ_NULL;
     return ZJ_PARSE_OK;
 }
@@ -43,7 +43,7 @@ static int _zjson_parse_false(IN zjson_context *context, OUT zjson_value *value)
     {
         return ZJ_PARSE_INVALID_VALUE;
     }
-    context->json += 5;
+    context->json += 5; /* 判断结尾用 */
     value->type = ZJ_FALSE;
     return ZJ_PARSE_OK;
 }
@@ -55,7 +55,7 @@ static int _zjson_parse_true(IN zjson_context *context, OUT zjson_value *value)
     {
         return ZJ_PARSE_INVALID_VALUE;
     }
-    context->json += 4;
+    context->json += 4; /* 判断结尾用 */
     value->type = ZJ_TRUE;
     return ZJ_PARSE_OK;
 }
@@ -87,7 +87,7 @@ int zjson_parse(IN zjson_value *value, OUT const char *jsonStr)
     if ((ret = _zjson_parse_value(&context, value)) == ZJ_PARSE_OK)
     {
         _zjson_parse_whitespace(&context);
-        if ('\0' != *context.json)
+        if ('\0' != *context.json) /* 判断结尾 */
         {
             ret = ZJ_PARSE_EXPECT_VALUE;
         }
